@@ -1,4 +1,8 @@
-const list = [
+
+/*Handler Function in JSX*/
+
+const App = () => {
+const stories = [
   {
     title: 'React',
     url: 'https://react.dev/',
@@ -17,56 +21,76 @@ const list = [
   },
 ]
 
-
-
-//Lists in React
-function App() {
-  return (
-    <div>
+  return(
+ <div>
       <h1>my react stories</h1>
         <Search/>
 
     
       <hr />
-        <List/>
+        <List list={stories}/>
     </div>
-  );
+
+    )
+  
+   
 }
+
+
+ 
+
 
 /*search react component*/
-function Search(){
+ const Search = ()=> {
+   const handleChange = (event)=>{
+    //
+    console.log(event)
+    console.log(event.target.value)
+   }
+
+
   return(
-      <div>
+     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type="text" />
+      <input id="search" type="text" onChange={handleChange} />
 
       </div>
+
     )
-}
 
+ }
+  
+    
+  
 
-
-
-
-///LIST component  {/*write jsx below inside <ul></ul>*/}
-function List(){
-  return (
+/*refactor function to const  => ()  no return*/
+ const List = (props) =>(
+  
     <ul>
-      {list.map(function (item) {
-        return (
-          <li key={item.objectID}>
-            <span>
-              <a href={item.url}>{item.title}</a>
-            </span>
-            <span>{item.author}</span>
-            <span>{item.num_comments}</span>
-            <span>{item.points}</span>
-          </li>
-        );
-      })}
+      {props.list.map((item)=> (
+        <Item key={item.objectID} item={item}/>
+        
+      ))}
     </ul>
-  )
-}
+  
+)
+
+
+ /*            */
+const Item = (props)=>(
+  <li>
+    
+      <span>
+        <a href={props.item.url}>{props.item.title}</a>
+      </span>
+      <span>{props.item.author}</span>
+      <span>{props.item.num_comments}</span>
+      <span>{props.item.points}</span> 
+    
+  </li>
+)
+
+
 
 
 
