@@ -1,5 +1,5 @@
-
-/*Handler Function in JSX*/
+import * as React from 'react';
+/**/
 
 const App = () => {
 const stories = [
@@ -21,10 +21,20 @@ const stories = [
   },
 ]
 
+// A
+const handleSearch = (event) => {
+// D
+console.log(event.target.value);
+}
+
+
+
   return(
  <div>
-      <h1>my react stories</h1>
-        <Search/>
+      <h1>my Hacker stories</h1>
+        
+        {/* // B */}
+        <Search onSearch={handleSearch} />
 
     
       <hr />
@@ -38,14 +48,17 @@ const stories = [
 
 
  
+/* state = value  | state updater function = setValue |
+React.useState('') = initial state
+  */
+ const Search = (props)=> {
+ const [searchTerm, setSearchTerm] = React.useState('');
 
-
-/*search react component*/
- const Search = ()=> {
    const handleChange = (event)=>{
-    //
-    console.log(event)
-    console.log(event.target.value)
+    setSearchTerm(event.target.value)
+
+    // C
+    props.onSearch(event)
    }
 
 
@@ -54,6 +67,10 @@ const stories = [
       <label htmlFor="search">Search: </label>
       <input id="search" type="text" onChange={handleChange} />
 
+
+       <p>
+          Searching for <strong>{searchTerm}</strong>.
+       </p>
       </div>
 
     )
@@ -63,7 +80,7 @@ const stories = [
     
   
 
-/*refactor function to const  => ()  no return*/
+/**/
  const List = (props) =>(
   
     <ul>
