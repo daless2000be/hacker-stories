@@ -52,31 +52,57 @@ const App = () => {
     <div>
       <h1>My Hacker Stories</h1>
 
-      <Search search={searchTerm} onSearch={handleSearch} />
+     <InputWithLabel
+     id='search'
+     value={searchTerm}
+     isFocused
+     onInputChange={handleSearch}
+     >
 
-      <hr />
+      <strong>Search:</strong>
+    </InputWithLabel>
 
       <List list={searchedStories} />
     </div>
   );
 };
 
-/*component*/
-const Search = ({ search, onSearch }) => (
-  <>
-    <label htmlFor="search">Search: </label>
-    <input
-      id="search"
-      type="text"
-      value={search}
-      onChange={onSearch}
-    />
-  </>
-);
+////
+const InputWithLabel = ({
+  id,
+  value,
+  type = 'text',
+  onInputChange,
+  isFocused,
+  children,
+}) => {
+  const inputRef = React.useRef();
+
+  React.useEffect(() => {
+    if (isFocused && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isFocused]);
+
+  return (
+    <>
+      <label htmlFor={id}>{children}</label>
+      &nbsp;
+      <input
+        ref={inputRef}
+        id={id}
+        type={type}
+        value={value}
+        onChange={onInputChange}
+      />
+    </>
+  );
+};
 
 
-// keep Variation 1: Spread and Rest Operators
-// Final Step
+
+
+
 const List = ({ list }) => (
   <ul>
     {list.map((item) => (
